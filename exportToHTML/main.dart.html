@@ -1,0 +1,125 @@
+<html>
+<head>
+<title>main.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #6a8759;}
+.s2 { color: #cc7832;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:flutter/cupertino.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s2">;</span>
+
+<span class="s2">void </span><span class="s0">main() =&gt; runApp(</span><span class="s2">new </span><span class="s0">ListApp())</span><span class="s2">;</span>
+
+<span class="s2">class </span><span class="s0">ListApp </span><span class="s2">extends </span><span class="s0">StatelessWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return new </span><span class="s0">MaterialApp(title: </span><span class="s1">'Todo List'</span><span class="s2">, </span><span class="s0">home: </span><span class="s2">new </span><span class="s0">TodoList())</span><span class="s2">;</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">TodoList </span><span class="s2">extends </span><span class="s0">StatefulWidget {</span>
+  <span class="s0">@override</span>
+  <span class="s0">createState() =&gt; </span><span class="s2">new </span><span class="s0">ListState()</span><span class="s2">;</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">ListState </span><span class="s2">extends </span><span class="s0">State&lt;TodoList&gt; {</span>
+  <span class="s0">List&lt;String&gt; _listItems = []</span><span class="s2">;</span>
+
+  <span class="s2">void </span><span class="s0">_addTodoItem(String task) {</span>
+    <span class="s2">if </span><span class="s0">(task.length &gt; </span><span class="s3">0</span><span class="s0">) {</span>
+      <span class="s0">setState(() =&gt; _listItems.add(task))</span><span class="s2">;</span>
+    <span class="s0">}</span>
+  <span class="s0">}</span>
+
+  <span class="s2">void </span><span class="s0">_removeTodoItem(int index) {</span>
+    <span class="s0">setState(() =&gt; _listItems.removeAt(index))</span><span class="s2">;</span>
+  <span class="s0">}</span>
+
+  <span class="s0">Widget _buildTodoList() {</span>
+    <span class="s2">return new </span><span class="s0">ListView.builder(</span>
+      <span class="s0">itemBuilder: (context</span><span class="s2">, </span><span class="s0">index) {</span>
+        <span class="s2">if </span><span class="s0">(index &lt; _listItems.length) {</span>
+          <span class="s2">return </span><span class="s0">_buildTodoItem(_listItems[index]</span><span class="s2">, </span><span class="s0">index)</span><span class="s2">;</span>
+        <span class="s0">}</span>
+      <span class="s0">}</span><span class="s2">,</span>
+    <span class="s0">)</span><span class="s2">;</span>
+  <span class="s0">}</span>
+
+  <span class="s0">Widget _buildTodoItem(String todoText</span><span class="s2">, </span><span class="s0">int index) {</span>
+    <span class="s2">return new </span><span class="s0">ListTile(</span>
+        <span class="s0">title: </span><span class="s2">new </span><span class="s0">Text(todoText)</span><span class="s2">, </span><span class="s0">onTap: () =&gt; _promptRemoveTodoItem(index))</span><span class="s2">;</span>
+  <span class="s0">}</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return new </span><span class="s0">Scaffold(</span>
+      <span class="s0">backgroundColor: Colors.tealAccent</span><span class="s2">,</span>
+      <span class="s0">appBar: </span><span class="s2">new </span><span class="s0">AppBar(</span>
+        <span class="s0">title: </span><span class="s2">new </span><span class="s0">Text(</span><span class="s1">'DSC Task-1 To do List App'</span><span class="s0">)</span><span class="s2">,</span>
+        <span class="s0">backgroundColor: Colors.blueGrey</span><span class="s2">,</span>
+      <span class="s0">)</span><span class="s2">,</span>
+      <span class="s0">body: _buildTodoList()</span><span class="s2">,</span>
+      <span class="s0">floatingActionButton: </span><span class="s2">new </span><span class="s0">FloatingActionButton(</span>
+          <span class="s0">backgroundColor: Colors.blueGrey</span><span class="s2">,</span>
+          <span class="s0">onPressed:</span>
+              <span class="s0">_pushAddTodoScreen</span><span class="s2">, </span><span class="s4">// pressing this button now opens the new screen</span>
+          <span class="s0">tooltip: </span><span class="s1">'Add task'</span><span class="s2">,</span>
+          <span class="s0">child: </span><span class="s2">new </span><span class="s0">Text(</span><span class="s1">'Add'</span><span class="s0">))</span><span class="s2">,</span>
+    <span class="s0">)</span><span class="s2">;</span>
+  <span class="s0">}</span>
+
+  <span class="s2">void </span><span class="s0">_pushAddTodoScreen() {</span>
+    <span class="s0">Navigator.of(context).push(</span><span class="s2">new </span><span class="s0">MaterialPageRoute(builder: (context) {</span>
+      <span class="s2">return new </span><span class="s0">Scaffold(</span>
+          <span class="s0">backgroundColor: Colors.tealAccent</span><span class="s2">,</span>
+          <span class="s0">appBar: </span><span class="s2">new </span><span class="s0">AppBar(</span>
+            <span class="s0">title: </span><span class="s2">new </span><span class="s0">Text(</span><span class="s1">'New Task'</span><span class="s0">)</span><span class="s2">,</span>
+            <span class="s0">backgroundColor: Colors.blueGrey</span><span class="s2">,</span>
+          <span class="s0">)</span><span class="s2">,</span>
+          <span class="s0">body: </span><span class="s2">new </span><span class="s0">TextField(</span>
+            <span class="s0">autofocus: </span><span class="s2">true,</span>
+            <span class="s0">onSubmitted: (val) {</span>
+              <span class="s0">_addTodoItem(val)</span><span class="s2">;</span>
+              <span class="s0">Navigator.pop(context)</span><span class="s2">;</span>
+            <span class="s0">}</span><span class="s2">,</span>
+            <span class="s0">decoration: </span><span class="s2">new </span><span class="s0">InputDecoration(</span>
+                <span class="s0">hintText: </span><span class="s1">'Type Task'</span><span class="s2">,</span>
+                <span class="s0">contentPadding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">16.0</span><span class="s0">))</span><span class="s2">,</span>
+          <span class="s0">))</span><span class="s2">;</span>
+    <span class="s0">}))</span><span class="s2">;</span>
+  <span class="s0">}</span>
+
+  <span class="s2">void </span><span class="s0">_promptRemoveTodoItem(int index) {</span>
+    <span class="s0">showDialog(</span>
+        <span class="s0">context: context</span><span class="s2">,</span>
+        <span class="s0">builder: (BuildContext context) {</span>
+          <span class="s2">return new </span><span class="s0">CupertinoAlertDialog(</span>
+              <span class="s0">title: </span><span class="s2">new </span><span class="s0">Text(</span><span class="s1">'Mark &quot;</span><span class="s0">${_listItems[index]}</span><span class="s1">&quot; as done?'</span><span class="s0">)</span><span class="s2">,</span>
+              <span class="s0">actions: &lt;Widget&gt;[</span>
+                <span class="s2">new </span><span class="s0">FlatButton(</span>
+                    <span class="s0">child: </span><span class="s2">new </span><span class="s0">Text(</span><span class="s1">'CANCEL'</span><span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">onPressed: () =&gt; Navigator.of(context).pop())</span><span class="s2">,</span>
+                <span class="s2">new </span><span class="s0">FlatButton(</span>
+                    <span class="s0">child: </span><span class="s2">new </span><span class="s0">Text(</span><span class="s1">'MARK AS DONE'</span><span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">onPressed: () {</span>
+                      <span class="s0">_removeTodoItem(index)</span><span class="s2">;</span>
+                      <span class="s0">Navigator.of(context).pop()</span><span class="s2">;</span>
+                    <span class="s0">})</span>
+              <span class="s0">])</span><span class="s2">;</span>
+        <span class="s0">})</span><span class="s2">;</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>
